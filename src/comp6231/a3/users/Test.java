@@ -13,7 +13,7 @@ import comp6231.a3.common.users.CampusUser;
 public class Test {
 
 	public static void main(String[] args) throws SecurityException, IOException, NotBoundException, InterruptedException {
-		Bootstrap.initRmiServers();		
+		Bootstrap.initNonBlockingServers();		
 		AdminClient admin1 = ClientUserFactory.createAdminClient(new CampusUser("DVLA1111"));
 		admin1.startWeek();
 		AdminClient admin2 = ClientUserFactory.createAdminClient(new CampusUser("KKLA1111"));

@@ -26,7 +26,7 @@ public class AdminOperationsTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Bootstrap.initRmiServers();
+		Bootstrap.initNonBlockingServers();
 		System.setProperty("java.security.policy", "file:./src/comp6231/security.policy");
 		if (System.getSecurityManager() == null)
 			System.setSecurityManager(new SecurityManager());

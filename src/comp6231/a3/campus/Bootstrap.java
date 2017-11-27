@@ -44,20 +44,23 @@ public class Bootstrap {
 	public static ArrayList<Campus> campuses = new ArrayList<Campus>();
 	public static boolean init = false;
 		
-	public static synchronized void initRmiServers() throws SecurityException, IOException
+	public static synchronized void initNonBlockingServers() throws SecurityException, IOException
 	{
-		if (init || com_type != CommunicationType.RMI)
+		if (init || (com_type != CommunicationType.RMI && com_type != CommunicationType.WEB_SERVICE))
 			return;
 		init = true;
 		if (!different_processes)
 		{
-			try {
-				LocateRegistry.createRegistry(1099);
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (com_type == CommunicationType.RMI)
+			{
+				try {
+					LocateRegistry.createRegistry(1099);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Java RMI registry created.");
 			}
-			System.out.println("Java RMI registry created.");
 			initServers(campus_names, ports);
 		}
 	}
@@ -89,6 +92,7 @@ public class Bootstrap {
 					ri.port = ports[ii];
 					hm.put(campus_names[ii], ri);
 				}
+				tmp.campus_remote_info = hm;
 				comm = tmp;
 				break;
 			default:
@@ -120,7 +124,7 @@ public class Bootstrap {
 			switch (com_type)
 			{
 			case RMI:
-				initRmiServers();
+				initNonBlockingServers();
 				break;
 			case CORBA:
 				initServers(campus_names, ports);

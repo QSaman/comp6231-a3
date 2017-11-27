@@ -52,7 +52,7 @@ public class StudentClientTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Bootstrap.initRmiServers();
+		Bootstrap.initNonBlockingServers();
 	}
 
 	/**
