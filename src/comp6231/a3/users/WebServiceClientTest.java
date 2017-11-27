@@ -39,7 +39,7 @@ public class WebServiceClientTest {
 		AdminOperations admin = service.getPort(AdminOperations.class);
 		ArrayList<String> time_slots = new ArrayList<>();
 		time_slots.add("7:00 - 8:00");
-		admin.createRoom("DVLA1111", 7777, "08-11-2017", time_slots);
+		//admin.createRoom("DVLA1111", 7777, "08-11-2017", time_slots);
 	}
 
 }

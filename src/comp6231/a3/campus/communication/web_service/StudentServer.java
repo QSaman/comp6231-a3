@@ -108,6 +108,8 @@ public class StudentServer implements StudentOperations {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (ret == null)
+			ret = "";
 		return ret;
 	}
 

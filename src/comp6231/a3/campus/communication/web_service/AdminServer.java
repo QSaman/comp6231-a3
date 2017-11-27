@@ -42,7 +42,7 @@ public class AdminServer implements AdminOperations {
 	 */
 	@WebMethod
 	@Override
-	public boolean createRoom(String user_id, int room_number, String date, ArrayList<String> time_slots) {
+	public boolean createRoom(String user_id, int room_number, String date, String[] time_slots) {
 		
 		return campus.createRoom(user_id, room_number, new DateReservation(date), TimeSlot.toTimeSlot(time_slots));
 	}
@@ -52,7 +52,7 @@ public class AdminServer implements AdminOperations {
 	 */
 	@WebMethod
 	@Override
-	public boolean deleteRoom(String user_id, int room_number, String date, ArrayList<String> time_slots) {
+	public boolean deleteRoom(String user_id, int room_number, String date, String[] time_slots) {
 		return campus.deleteRoom(user_id, room_number, new DateReservation(date), TimeSlot.toTimeSlot(time_slots));
 	}
 

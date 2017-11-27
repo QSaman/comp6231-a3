@@ -33,7 +33,7 @@ public class StudentWebService implements StudentInterface {
 	public String bookRoom(String user_id, String campus_name, int room_number, DateReservation date,
 			TimeSlot time_slot) {
 		String res = remote_stub.bookRoom(user_id, campus_name, room_number, date.toString(), time_slot.toString());
-		if (res == "")
+		if (res.isEmpty())
 			res = null;
 		return res;
 	}
@@ -61,7 +61,10 @@ public class StudentWebService implements StudentInterface {
 	@Override
 	public String changeReservation(String user_id, String booking_id, String new_campus_name, int new_room_number,
 			DateReservation new_date, TimeSlot new_time_slot) {
-		return remote_stub.changeReservation(user_id, booking_id, new_campus_name, new_room_number, new_date.toString(), new_time_slot.toString());
+		String res = remote_stub.changeReservation(user_id, booking_id, new_campus_name, new_room_number, new_date.toString(), new_time_slot.toString());
+		if (res.isEmpty())
+			res = null;
+		return res;
 	}
 
 }
