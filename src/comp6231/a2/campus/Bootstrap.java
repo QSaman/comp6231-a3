@@ -9,11 +9,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import comp6231.a2.campus.CampusCommunication.RemoteInfo;
 import comp6231.a2.campus.communication.RmiCampusCommunication;
 import comp6231.a2.campus.communication.corba.CorbaCampusCommunication;
+import comp6231.a2.campus.communication.web_service.WebServiceCampusCommunication;
 import comp6231.a2.common.LoggerHelper;
 
 /**
@@ -27,10 +30,11 @@ public class Bootstrap {
 	public enum CommunicationType
 	{
 		RMI,
-		CORBA
+		CORBA,
+		WEB_SERVICE
 	}
 			
-	public final static CommunicationType com_type = CommunicationType.CORBA;
+	public final static CommunicationType com_type = CommunicationType.WEB_SERVICE;
 	public final static String corba_port = "1050";
 	private static String[] campus_names = {"DVL", "KKL", "WST"};
 	private static int[] ports = {7777, 7778, 7779};
@@ -74,6 +78,19 @@ public class Bootstrap {
 			case CORBA:
 				comm = new CorbaCampusCommunication();
 				break;
+			case WEB_SERVICE:
+				WebServiceCampusCommunication tmp = new WebServiceCampusCommunication();
+				tmp.campus_names = Bootstrap.campus_names;
+				HashMap<String, RemoteInfo> hm = new HashMap<>();
+				for (int ii = 0; ii < campus_names.length; ++ii)
+				{
+					RemoteInfo ri = tmp.new RemoteInfo();
+					ri.address = "127.0.0.1";
+					ri.port = ports[ii];
+					hm.put(campus_names[ii], ri);
+				}
+				comm = tmp;
+				break;
 			default:
 				return;
 			}
@@ -109,6 +126,8 @@ public class Bootstrap {
 				initServers(campus_names, ports);
 				CorbaCampusCommunication.run();
 				break;
+			case WEB_SERVICE:
+				initServers(campus_names, ports);
 			}
 					
 		}

@@ -20,7 +20,12 @@ public class TimeSlotResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String campusName;
 	private int totalAvailableSlots;
-					
+
+	@Override
+	public String toString()
+	{
+		return campusName + ": " + totalAvailableSlots;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
