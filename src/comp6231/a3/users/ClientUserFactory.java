@@ -1,11 +1,15 @@
 package comp6231.a3.users;
 
 import java.io.IOException;
+import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Properties;
 import java.util.logging.Logger;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.ORBPackage.InvalidName;
@@ -20,6 +24,7 @@ import comp6231.a3.common.corba.users.AdminOperationsHelper;
 import comp6231.a3.common.corba.users.StudentOperationsHelper;
 import comp6231.a3.common.users.CampusUser;
 import comp6231.a3.common.users.StudentOperations;
+import comp6231.a3.common.web_service.AdminOperations;
 
 public abstract class ClientUserFactory {
 	static ORB orb = null;
@@ -69,6 +74,14 @@ public abstract class ClientUserFactory {
 				return null;
 			}
 			break;
+		case WEB_SERVICE:
+			String url_str = "http://localhost:8080/" + user.getCampus() + "/student?wsdl";
+			URL url = new URL(url_str);
+			QName qName = new QName("http://web_service.communication.campus.a3.comp6231/", "StudentServerService");
+			Service service = Service.create(url, qName);
+			comp6231.a3.common.web_service.StudentOperations web_service = service.getPort(comp6231.a3.common.web_service.StudentOperations.class);
+			student_interface = new StudentWebService(web_service);
+			break;
 		default:
 			return null;
 		}
@@ -99,6 +112,14 @@ public abstract class ClientUserFactory {
 				e.printStackTrace();
 				return null;
 			}
+			break;
+		case WEB_SERVICE:
+			String url_str = "http://localhost:8080/" + user.getCampus() + "/admin?wsdl";
+			URL url = new URL(url_str);
+			QName qName = new QName("http://web_service.communication.campus.a3.comp6231/", "AdminServerService");
+			Service service = Service.create(url, qName);
+			comp6231.a3.common.web_service.AdminOperations web_service = service.getPort(comp6231.a3.common.web_service.AdminOperations.class);
+			admin = new AdminWebService(web_service);
 			break;
 		default:
 			return null;

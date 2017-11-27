@@ -29,6 +29,22 @@ public class TimeSlot implements Serializable {
 		initTimeSlot(hour1, minute1, hour2, minute2);
 	}
 	
+	public static ArrayList<String> toString(ArrayList<TimeSlot> list)
+	{
+		ArrayList<String> ret = new ArrayList<>();
+		for (TimeSlot ts : list)
+			ret.add(ts.toString());
+		return ret;
+	}
+	
+	public static ArrayList<TimeSlot> toTimeSlot(ArrayList<String> list)
+	{
+		ArrayList<TimeSlot> alts = new ArrayList<>();
+		for (String str : list)
+			alts.add(new TimeSlot(str));
+		return alts;
+	}
+	
 	public TimeSlot(CorbaTimeSlot time_slot)
 	{
 		initTimeSlot(time_slot.hour1, time_slot.minute1, time_slot.hour2, time_slot.minute2);

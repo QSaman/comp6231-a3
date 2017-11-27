@@ -26,6 +26,34 @@ public class TimeSlotResult implements Serializable {
 	{
 		return campusName + ": " + totalAvailableSlots;
 	}
+	
+	public static String toString(ArrayList<TimeSlotResult> list)
+	{
+		boolean first = true;
+		String ret = "";
+		for (TimeSlotResult tsr : list)
+		{
+			if (first)
+				first = false;
+			else
+				ret += "\n";
+			ret += tsr.toString();
+		}
+		return ret;
+	}
+	
+	public static ArrayList<TimeSlotResult> toList(String str)
+	{
+		String[] lines = str.split("\n");
+		ArrayList<TimeSlotResult> ret = new ArrayList<>();
+		for (String line : lines)
+		{
+			String[] tokens = line.split(":");
+			ret.add(new TimeSlotResult(tokens[0].trim(), Integer.parseInt(tokens[1].trim())));
+		}
+		return ret;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */

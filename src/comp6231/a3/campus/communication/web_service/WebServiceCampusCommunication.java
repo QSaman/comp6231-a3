@@ -48,8 +48,12 @@ public class WebServiceCampusCommunication extends CampusCommunication {
 	public void startServer() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(host_str).append('/').append(campus.getName()).append('/');
-		Endpoint.publish(sb.toString() + "student", new StudentServer(campus));
-		Endpoint.publish(sb.toString() + "admin", new AdminServer(campus));
+		StudentServer student_server = new StudentServer();
+		student_server.setCampus(campus);
+		AdminServer admin_server = new AdminServer();
+		admin_server.setCampus(campus);
+		Endpoint.publish(sb.toString() + "student", student_server);
+		Endpoint.publish(sb.toString() + "admin", admin_server);
 	}
 
 }
