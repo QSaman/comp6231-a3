@@ -1,0 +1,55 @@
+module comp6231 { module a2 { module common { module corba { module data_structure {
+    struct CorbaDateReservation
+    {
+        long year, month, day;
+    };
+    
+    struct CorbaTimeSlot
+    {
+        long hour1, minute1, hour2, minute2;
+    };
+    
+    struct CorbaTimeSlotResult
+    {
+        string campus_name;
+        long total_available_slots;
+    };
+};};};};};
+
+module comp6231 { module a2 { module common { module corba { module users {
+    typedef comp6231::a2::common::corba::data_structure::CorbaDateReservation CorbaDateReservation;
+    typedef comp6231::a2::common::corba::data_structure::CorbaTimeSlot CorbaTimeSlot;
+    typedef comp6231::a2::common::corba::data_structure::CorbaTimeSlotResult CorbaTimeSlotResult;
+    valuetype nullable_string string;
+    
+    typedef sequence<CorbaTimeSlotResult> corba_timeslot_result_list;
+    typedef sequence<CorbaTimeSlot> corba_timeslot_list;
+    
+    interface StudentOperations
+    {
+	nullable_string bookRoom(in string user_id, in string campus_name, in long room_number, in CorbaDateReservation date, in CorbaTimeSlot time_slot);
+	corba_timeslot_result_list getAvailableTimeSlot(in CorbaDateReservation date);
+	boolean cancelBooking(in string user_id, in string bookingID);
+	nullable_string changeReservation(in string user_id, in string booking_id, in string new_campus_name, in long new_room_number, in CorbaDateReservation new_date, in CorbaTimeSlot new_time_slot);
+    };
+    
+    interface AdminOperations
+    {        
+	boolean createRoom(in string user_id, in long room_number, in CorbaDateReservation date, in corba_timeslot_list time_slots);
+	boolean deleteRoom(in string user_id, in long room_number, in CorbaDateReservation date, in corba_timeslot_list time_slots);
+	boolean startWeek(in string user_id);
+    };
+    
+};};};};};
+
+
+module comp6231 { module a2 { module common { module corba{ module campus {
+    interface CampusOperations
+    {
+	long getPort();
+	string getAddress();
+	string getCampusName();
+    };
+
+};};};};};
+
