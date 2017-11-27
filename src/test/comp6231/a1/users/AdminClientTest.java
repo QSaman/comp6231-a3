@@ -18,15 +18,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import comp6231.a2.campus.Bootstrap;
-import comp6231.a2.common.DateReservation;
-import comp6231.a2.common.TimeSlot;
-import comp6231.a2.common.TimeSlotResult;
-import comp6231.a2.common.users.AdminOperations;
-import comp6231.a2.common.users.CampusUser;
-import comp6231.a2.users.AdminClient;
-import comp6231.a2.users.ClientUserFactory;
-import comp6231.a2.users.StudentClient;
+import comp6231.a3.campus.Bootstrap;
+import comp6231.a3.common.DateReservation;
+import comp6231.a3.common.TimeSlot;
+import comp6231.a3.common.TimeSlotResult;
+import comp6231.a3.common.users.AdminOperations;
+import comp6231.a3.common.users.CampusUser;
+import comp6231.a3.users.AdminClient;
+import comp6231.a3.users.ClientUserFactory;
+import comp6231.a3.users.StudentClient;
 
 /**
  * @author saman
